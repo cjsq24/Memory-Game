@@ -2,7 +2,7 @@ import React from 'react'
 
 type TProps = {
   label: string
-  value: string
+  value: string | number
   marginLeft?: boolean
 }
 

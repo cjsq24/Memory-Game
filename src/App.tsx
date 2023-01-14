@@ -4,12 +4,12 @@ import './App.css'
 import CustomModal from './components/Modal'
 import Select from './components/Select'
 import CardList from './Views/CardList'
-import './utils/i18n'
+import i18n from './utils/i18n'
 import { useTranslation } from 'react-i18next'
 
-const quantityValues = ['10', '20', '30', '40', '50', '60']
-const maxFailures = ['none', '10', '20', '30', '40', '50', '60']
-const timeoutList = ['none']
+const quantityValues = ['10', '20', '30', '40', '48']
+const maxFailures = [i18n.t('none'), '10', '20', '30', '40', '50']
+const timeoutList = [i18n.t('none')]
 
 for (let i = 0; i < 20; i++) {
   timeoutList.push((i + 1).toString())
@@ -38,7 +38,7 @@ function App() {
     <div className='container'>
       {startGame && (
         <CardList
-          quantityCards={quantityCards}
+          quantityCards={parseInt(quantityCards)}
           limitFailures={limitFailures}
           timeoutGame={timeoutGame}
           setStartGame={setStartGame}

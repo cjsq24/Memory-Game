@@ -11,8 +11,8 @@ const selectAndShuffleIcons = (quantity: number, iconsToExtract: IArrayIcon[]): 
   return newIconList
 }
 
-const getIcons = (quantity: string): IArrayIcon[] => {
-  const iconsSelected = selectAndShuffleIcons(parseInt(quantity), icons)
+const getIcons = (quantity: number): IArrayIcon[] => {
+  const iconsSelected = selectAndShuffleIcons(quantity, icons)
   iconsSelected.push(...iconsSelected)
   const iconsToPlay = selectAndShuffleIcons(iconsSelected.length, iconsSelected)
   return iconsToPlay

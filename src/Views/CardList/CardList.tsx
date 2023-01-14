@@ -12,7 +12,7 @@ enum EResult {
 }
 
 type TProps = {
-  quantityCards: string
+  quantityCards: number
   limitFailures: string
   timeoutGame: string
   setStartGame: (value: boolean) => void
@@ -34,11 +34,22 @@ const CardList = ({ quantityCards, limitFailures, timeoutGame, setStartGame }: T
   const cardActive = useRef('')
 
   const { width } = useWindowDimensions()
-  const rowBreak = useMemo(() => (width > 850 ? 8 : 10000), [width])
+
+  const getBreakByCards = () => {
+    if (quantityCards === 10) return width > 367 ? 5 : undefined
+    else if (quantityCards === 20) return width > 820 ? 8 : undefined
+    else if (quantityCards === 30 || quantityCards === 40) return width > 1018 ? 10 : undefined
+    else if (quantityCards === 48) return width > 1218 ? 12 : undefined
+  }
+
+  const rowBreak = useMemo(
+    () => /* width > 850 ? getBreakByCards() : 10000 */ getBreakByCards(),
+    [width],
+  )
   const fontSizeIcon = useMemo(() => (width > 850 ? 50 : width > 616 ? 40 : 35), [width])
 
   useEffect(() => {
-    if (countSuccess === parseInt(quantityCards) * 2) {
+    if (countSuccess === quantityCards * 2) {
       clearInterval(timeoutIntervalId)
       setTimeout(() => {
         setResultGame(EResult.success)
@@ -56,7 +67,7 @@ const CardList = ({ quantityCards, limitFailures, timeoutGame, setStartGame }: T
 
   // time running
   useEffect(() => {
-    if (timeoutGame !== 'none') return
+    if (timeoutGame !== t('none')) return
     let seconds = 0
     const intervalId = setInterval(() => {
       seconds++
@@ -67,7 +78,7 @@ const CardList = ({ quantityCards, limitFailures, timeoutGame, setStartGame }: T
 
   // timeout remaining
   useEffect(() => {
-    if (timeoutGame === 'none') return
+    if (timeoutGame === t('none')) return
     let seconds = parseInt(timeoutGame) * 60
     const intervalId = setInterval(() => {
       seconds--
@@ -110,13 +121,13 @@ const CardList = ({ quantityCards, limitFailures, timeoutGame, setStartGame }: T
         <TitleData label={t('cards')} value={quantityCards} />
         <TitleData
           label={t('failures')}
-          value={`${countFailures}${limitFailures !== 'none' ? '/' + quantityCards : ''}`}
+          value={`${countFailures}${limitFailures !== t('none') ? '/' + quantityCards : ''}`}
           marginLeft
         />
-        {timeoutGame === 'none' && (
+        {timeoutGame === t('none') && (
           <TitleData label={t('timeRunning')} value={timeRunning} marginLeft />
         )}
-        {timeoutGame !== 'none' && (
+        {timeoutGame !== t('none') && (
           <TitleData label={t('timeRemaining')} value={timeRemaining} marginLeft />
         )}
       </div>
