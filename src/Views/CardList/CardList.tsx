@@ -144,13 +144,13 @@ const CardList = ({ quantityCards, limitFailures, timeoutGame, setStartGame }: T
                   id={id}
                   onClick={() => onClickCard(id, key)}
                 >
+                  <div className='flip-card-back'>
+                    <ChangeCircle sx={{ fontSize: fontSizeIcon, color: 'gray' }} />
+                  </div>
                   <div className='flip-card-front' style={{ backgroundColor: color }}>
                     <div className='icon-background'>
                       <Icon sx={{ fontSize: fontSizeIcon, color: 'black' }} />
                     </div>
-                  </div>
-                  <div className='flip-card-back'>
-                    <ChangeCircle sx={{ fontSize: fontSizeIcon, color: 'gray' }} />
                   </div>
                 </div>
               </div>
